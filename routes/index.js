@@ -16,12 +16,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 },
+    limits: { fileSize: 1 * 1024 * 1024 },
     fileFilter: function(req, file, cb) {
         if (file.mimetype === 'image/png') {
             cb(null, true);
         } else {
-            cb(new Error('Chỉ được phép upload ảnh PNG và kích thước nhỏ hơn 5MB!'));
+            cb(new Error('Chỉ được phép upload ảnh PNG và kích thước nhỏ hơn 1MB!'));
         }
     }
 });

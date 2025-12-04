@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 
 var upload = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+    limits: { fileSize: 1 * 1024 * 1024 }, // 5MB
     fileFilter: function(req, file, cb) {
         // Chấp nhận file ảnh, video và mp3
         if(file.mimetype.startsWith('image') ||
