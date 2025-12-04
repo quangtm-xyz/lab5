@@ -6,20 +6,54 @@
 </head>
 <body>
 <h1><%= title %></h1>
-<% if (error) { %>
-<p style="color: red;"><%= error %></p>
-<% } %>
-<form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="file" name="upload" multiple="multiple">
-    <input type="submit" value="Upload">
+<p id="error" style="color: red;"></p>
+<form id="uploadForm" enctype="multipart/form-data">
+    <input type="file" id="upload" name="upload" multiple="multiple" accept="image/png">
+    <input type="submit" value="Upload images">
 </form>
-<% if (files && files.length) { %>
-<h2>Ảnh đã upload:</h2>
-<div>
-    <% files.forEach(function(file) { %>
-    <img src="<%= file %>" alt="uploaded image" style="max-width: 200px; margin: 10px;">
-    <% }) %>
-</div>
-<% } %>
+
+<h2>Uploaded images</h2>
+<div id="preview"></div>
+
+<script>
+    (function() {
+        var form = document.getElementById('uploadForm');
+        var input = document.getElementById('upload');
+        var errorEl = document.getElementById('error');
+        var preview = document.getElementById('preview');
+        var MAX_SIZE = 5 * 1024 * 1024; // 5MB
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Không gửi form lên server
+            errorEl.textContent = '';
+            preview.innerHTML = '';
+
+            if (!input.files || !input.files.length) {
+                errorEl.textContent = 'Vui lòng chọn ít nhất một ảnh PNG nhỏ hơn 5MB!';
+                return;
+            }
+
+            Array.prototype.forEach.call(input.files, function(file) {
+                if (file.type !== 'image/png') {
+                    errorEl.textContent = 'Chỉ được phép chọn ảnh PNG!';
+                    return;
+                }
+
+                if (file.size > MAX_SIZE) {
+                    errorEl.textContent = 'File quá lớn! Mỗi ảnh tối đa 5MB.';
+                    return;
+                }
+
+                var url = URL.createObjectURL(file);
+                var img = document.createElement('img');
+                img.src = url;
+                img.alt = 'preview';
+                img.style.maxWidth = '200px';
+                img.style.margin = '10px';
+                preview.appendChild(img);
+            });
+        });
+    })();
+</script>
 </body>
 </html>
