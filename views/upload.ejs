@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+</head>
+<body>
+<h1><%= title %></h1>
+<% if (error) { %>
+<p style="color: red;"><%= error %></p>
+<% } %>
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="upload" multiple="multiple">
+    <input type="submit" value="Upload">
+</form>
+<% if (files && files.length) { %>
+<h2>Ảnh đã upload:</h2>
+<div>
+    <% files.forEach(function(file) { %>
+    <img src="<%= file %>" alt="uploaded image" style="max-width: 200px; margin: 10px;">
+    <% }) %>
+</div>
+<% } %>
+</body>
+</html>

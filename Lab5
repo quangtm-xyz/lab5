@@ -1,0 +1,5 @@
+Học viên tích hợp chức năng upload ảnh vào dự án Vercel buổi trước . Các chức năng yêu cầu như sau :
+1. Form upload cho phép chọn multi file ảnh
+2. Tạo quy định cho multer : Chỉ chọn ảnh png, ảnh nhỏ hơn 1MB
+3. Báo lỗi trên giao diện html khi có lỗi và yêu cầu người dùng nhập lại
+4. Upload thành công thì hiển thị ảnh đã upload
